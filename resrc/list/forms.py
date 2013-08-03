@@ -3,7 +3,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms_foundation.layout import Layout, Row, Column, Fieldset, Field, HTML, Submit, Div
-
+from django_markdown.widgets import MarkdownWidget
 
 class NewListAjaxForm(forms.Form):
     title = forms.CharField(label='Title', max_length=80)
@@ -52,7 +52,7 @@ class NewListForm(forms.Form):
     )
     private = forms.BooleanField(label='private', required=False)
     mdcontent = forms.CharField(
-        label='Content', required=False, widget=forms.Textarea()
+        label='Content', required=False, widget=MarkdownWidget()
     )
 
     def __init__(self, *args, **kwargs):

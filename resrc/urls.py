@@ -18,6 +18,7 @@ urlpatterns = patterns(
     # third party includes
     url(r'^ca/', include('captcha.urls')),
     url(r'^co/', include('mptt_comments.urls')),
+    url(r'^md/', include( 'django_markdown.urls')),
 
     url(r'^$', page.views.home),
 

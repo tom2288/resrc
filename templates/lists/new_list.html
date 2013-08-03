@@ -1,9 +1,17 @@
 {% extends "links/base.html" %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load markup %}
 
 {% block meta %}
-<script type="text/javascript">var jq = true;</script>
+<script type="text/javascript">var jq = null;
+var mySettings = {};</script>
+<script src="{% static "django_markdown/jquery.min.js" %}"></script>
+<script src="{% static "django_markdown/jquery.markitup.js" %}"></script>
+<script src="{% static "django_markdown/sets/markdown/set.js" %}"></script>
+<link href="{% static "django_markdown/skins/simple/style.css" %}" rel="stylesheet" type="text/css" />
+<link href="{% static "django_markdown/sets/markdown/style.css" %}" rel="stylesheet" type="text/css" />
+<link href="{% static "django_markdown/style.css" %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}
@@ -28,6 +36,4 @@
 
 {% block last_body %}
 
-<script type="text/javascript">
-</script>
 {% endblock last_body %}

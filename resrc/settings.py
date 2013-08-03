@@ -155,6 +155,7 @@ INSTALLED_APPS = (
     'mptt_comments',
     'floppyforms',
     'taggit',
+    'django_markdown',
 
     'resrc.userprofile',
     'resrc.link',
@@ -196,6 +197,15 @@ LOGGING = {
     }
 }
 
+AUTH_PROFILE_MODULE = 'userprofile.Profile'
+LOGIN_URL = '/u/login'
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: '/u/user/{0}'.format(u.username)
+}
+
+ALLOWED_HOSTS = []
+
 COMMENTS_APP = "mptt_comments"
 
 # simple captcha
@@ -215,9 +225,4 @@ MPTT_COMMENTS_OFFSET = 20
 MPTT_COMMENTS_COLLAPSE_ABOVE = 4
 MPTT_COMMENTS_CUTOFF = 5
 
-AUTH_PROFILE_MODULE = 'userprofile.Profile'
-LOGIN_URL = '/u/login'
-
-ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda u: '/u/user/{0}'.format(u.username)
-}
+MARKDOWN_EDITOR_SKIN = 'simple'

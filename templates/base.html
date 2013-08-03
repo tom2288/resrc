@@ -88,9 +88,11 @@
   if (typeof jq == "undefined") {
     var jq = false;
   }
-  document.write('<script src=' +
-  ((!jq && '__proto__' in {}) ? '{% static "js/vendor/zepto.js" %}' : '{% static "js/vendor/jquery.js" %}') +
-  '><\/script>');
+  if (jq != null) {
+    document.write('<script src=' +
+    ((!jq && '__proto__' in {}) ? '{% static "js/vendor/zepto.js" %}' : '{% static "js/vendor/jquery.js" %}') +
+    '><\/script>');
+  }
   </script>
   <script src="{% static "js/foundation/foundation.js" %}"></script>
   <script src="{% static "js/foundation/foundation.alerts.js" %}"></script>
