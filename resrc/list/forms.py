@@ -105,6 +105,18 @@ class NewListForm(forms.Form):
         super(NewListForm, self).__init__(*args, **kwargs)
 
 
+from resrc.list.models import List
+
+class TryModelForm(forms.ModelForm):
+
+    class Meta:
+        model = List
+        fields = ['title', 'description', 'url', 'is_public', 'md_content']
+        widgets = {
+            'md_content': forms.Textarea(attrs={'cols': 80, 'rows': 20})
+        }
+
+
 class EditListForm(forms.Form):
     title = forms.CharField(label='Title', max_length=80)
     description = forms.CharField(

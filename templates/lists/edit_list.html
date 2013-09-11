@@ -24,7 +24,16 @@ lolo
 {% block content %}
 <div class="row">
   <div class="large-12 columns">
-    {% crispy form %}
+      <form method="POST" action=""> 
+          {% csrf_token %}
+      {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+      {% endfor %}
+      <p><input type="submit" value="Save" /></p>
+  </form>
   </div>
 </div>
 {% endblock %}

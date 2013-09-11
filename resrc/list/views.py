@@ -175,6 +175,7 @@ def new_list(request):
         'links': links
     })
 
+from resrc.list.forms import TryModelForm
 
 @login_required
 def edit(request, list_pk, list_slug):
@@ -194,43 +195,67 @@ def edit(request, list_pk, list_slug):
     else:
         from_url = False
 
+    print 'before method test'
+
     if request.method == 'POST':
-        form = EditListForm(private_checkbox, alist.md_content, from_url, request.POST)
+
+        print request.POST
+        print 'this is a post'
+        form = TryModelForm(request.POST, instance=alist)
+        print 'form created'
+        print form
         if form.is_valid():
+            print 'form valid'
+            """
             is_private = False
 
-            if 'private' in form.data:
-                is_private = form.data['private']
+            if 'private' in form.cleaned_data:
+                is_private = form.cleaned_data['private']
 
             if len(form.data['url']) > 0:
-                mdcontent = urlopen(form.data['url']).read()
+                mdcontent = urlopen(form.cleaned_data['url']).read()
             else:
-                mdcontent = form.data['mdcontent']
+                mdcontent = form.cleaned_data['mdcontent']
+
 
             from resrc.utils.templatetags.emarkdown import listmarkdown
 
-            alist.title=form.data['title'],
-            alist.description=form.data['description'],
-            alist.url=form.data['url'],
-            alist.md_content=mdcontent,
-            alist.html_content=listmarkdown(mdcontent),
-            alist.is_public=not is_private
+
+            # the problem is here. wtf is .title doing ???
+            print type(alist)
+            alist.title = form.cleaned_data['title'],
+            alist.description = form.cleaned_data['description'],
+            alist.url = form.cleaned_data['url'],
+            alist.md_content = mdcontent,
+            alist.html_content = listmarkdown(mdcontent),
+            alist.is_public = not is_private
+
 
             alist.save()
+            """
+            form.save()
+            print form
+            print('saved!!!!!!!!!!!!!!!!!!!!')
 
             return redirect(alist.get_absolute_url())
+        else:
+            print 'form non valid'
+            print form.errors
 
     else:
 
+        """
         form = EditListForm(private_checkbox, alist.md_content, from_url, initial={
             'title': alist.title,
             'description': alist.description,
             'url': alist.url,
         })
+        """
+        form = TryModelForm(instance=alist)
 
         links = list(Link.objects.all())
 
-        return render_template('lists/new_list.html', {
+        return render_template('lists/edit_list.html', {
             'form': form,
             'links': links
         })
